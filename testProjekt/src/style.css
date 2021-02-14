@@ -33,3 +33,17 @@ article {
     grid-area: article;
     background-color: lightslategray;
 }
+
+a {
+    display: block;
+}
+
+.active-link {
+    background-color: lightsalmon;
+    padding: 1em;
+}
+
+.a-link {
+    background-color: lightpink;
+    padding: 1em;
+}

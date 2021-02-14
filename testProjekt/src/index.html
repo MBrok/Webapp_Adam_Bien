@@ -11,19 +11,22 @@
     <main>
         <header>
             <h2>TestApp</h2>
+            <air-crumb>...</air-crumb>
         </header>
         <nav>
-            <ul>
-                <li>eins</li>
-                <li>zwei</li>
-            </ul>
+            <air-nav activeLinkClass="a-link">
+                <a href="#list">Liste</a>
+                <a href="#add">Neu</a>
+            </air-nav>
         </nav>
         <article>
-            welcome
+            <air-slot>
+                Welcome
+            </air-slot>
         </article>
         <footer><small>copyright micha 2021</small></footer>
     </main>
-    <script src="app.js"></script>
+    <script src="app.js" type="module"></script>
 </body>
 
 </html>

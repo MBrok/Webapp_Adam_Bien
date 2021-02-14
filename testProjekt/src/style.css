@@ -1,1 +1,35 @@
-body {background-color: #ffafaf;}
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+main {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 6fr .25fr;
+    grid-template-areas:
+    "header header"
+    "nav article"
+    "footer footer"
+}
+
+header {
+    grid-area: header;
+    background-color: lightcyan;
+}
+
+nav {
+    grid-area: nav;
+    background-color: lightgreen;
+}
+
+footer {
+    grid-area: footer;
+    background-color: lightyellow;
+}
+
+article {
+    grid-area: article;
+    background-color: lightslategray;
+}

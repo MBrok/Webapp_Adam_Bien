@@ -5,7 +5,7 @@ export default class AddStock extends HTMLElement {
 
     connectedCallback(){
         this.innerHTML = `
-            <input placeholder="stock"></input>
+            <input placeholder="blabla"></input>
             <button>add</button>
         `;
     }

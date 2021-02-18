@@ -15,7 +15,23 @@ export default class AirNav extends HTMLElement {
     }
 
     registerListener(e) {
-        e.onclick = evt => this.onLinkClicked(evt);
+        window.onhashchange = evt => this.onAdressBarChanged(evt);
+
+    }
+
+    onAdressBarChanged(evt){
+        const { location } = window;
+        const { href } = location;
+        const { hash} = location;
+        console.log(" onhashchange -> ", href, hash);
+        const event = new CustomEvent('air-nav', {
+            detail: {
+                href: href,
+                hash: hash.substring(1)
+            },
+            bubbles: true
+        });
+        this.dispatchEvent(event);
     }
 
     onLinkClicked(evt) {
@@ -25,16 +41,7 @@ export default class AirNav extends HTMLElement {
         }
         this.activelLnk = target;
         this.activelLnk.classList.toggle(this.activeLinkClass);
-        evt.preventDefault();
-        const event = new CustomEvent('air-nav', {
-            detail: {
-                href: target.href,
-                hash: target.hash.substring(1), 
-                text: target.text
-            },
-            bubbles: true
-        });
-        this.dispatchEvent(event);
+
     }
 }
 

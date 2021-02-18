@@ -1,6 +1,3 @@
-import AddStock from './views/AddStock.js';
-import ListStocks from './views/ListStocks.js';
-
 export default class AirSlot extends HTMLElement {
 
     constructor() {
@@ -22,25 +19,21 @@ export default class AirSlot extends HTMLElement {
     onNavigation(evt) {
         const { detail } = evt;
         const { hash:linkName } = detail;
-        const { text } = detail;
-        const { href } = detail;
 
-        console.log(href, linkName, text);
-        
-        let newChild = null;
+        this.loadView(linkName);
+    }
 
-        if(linkName === 'add') {
-            newChild = new AddStock();
-        }
-        if(linkName === 'list') {
-            newChild = new ListStocks();
-        }
+    async loadView(linkName){
+        const  { default: View } = await import(`./views/${linkName}View.js`);
+        const newChild = new View();
+        console.log(`./views/${linkName}View.js`);
         if(this.oldChild){
             this.root.replaceChild(newChild,this.oldChild);
         }else {
             this.root.appendChild(newChild);
         }
         this.oldChild = newChild;
+
     }
 }
 

@@ -23,7 +23,6 @@ export default class AirNav extends HTMLElement {
         const { location } = window;
         const { href } = location;
         const { hash} = location;
-        console.log(" onhashchange -> ", href, hash);
         const event = new CustomEvent('air-nav', {
             detail: {
                 href: href,
@@ -32,6 +31,8 @@ export default class AirNav extends HTMLElement {
             bubbles: true
         });
         this.dispatchEvent(event);
+        const element = this.querySelector(`[href="${hash}"]`);
+        this.onLinkClicked({target: element});
     }
 
     onLinkClicked(evt) {

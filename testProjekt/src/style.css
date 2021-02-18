@@ -1,3 +1,8 @@
+*{
+    --air-header-color: lightcyan;
+}
+
+
 body {
     padding: 0px;
     margin: 0px;
@@ -16,7 +21,7 @@ main {
 
 header {
     grid-area: header;
-    background-color: lightcyan;
+    background-color: var(--air-header-color,blue);
 }
 
 nav {

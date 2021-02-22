@@ -3,11 +3,17 @@ export default class AirSlot extends HTMLElement {
     constructor() {
         super();
         this.oldChild = null;
+        this.loadConfiguration();
         this.root = this.attachShadow({mode:'open'});
     }
 
-    connectedCallback() {
+    async loadConfiguration(){
+        const response = await fetch('configuration.json');
+        this.configuration = await response.json();
         document.addEventListener('air-nav', e => this.onNavigation(e));
+    }
+
+    connectedCallback() {
         this.root.innerHTML = `
             <slot name="header">HEADER</slot>
             <slot name="view">CONTENT</slot>
@@ -19,15 +25,19 @@ export default class AirSlot extends HTMLElement {
     onNavigation(evt) {
         const { detail } = evt;
         const { hash:linkName } = detail;
-
-        this.loadView(linkName);
+        let file = `${linkName}View.js`;
+        const viewConfiguration = this.configuration[linkName];
+        if(viewConfiguration && viewConfiguration.file){
+            file = viewConfiguration.file;
+        }
+        this.loadView(file);
     }
 
-    async loadView(linkName){
+    async loadView(file){
 
-        console.log(`./views/${linkName}View.js`);
+        console.log(`./views/${file}`);
 
-        const  { default: View } = await import(`./views/${linkName}View.js`);
+        const  { default: View } = await import(`./views/${file}`);
         let newChild;
         if(View.prototype instanceof HTMLElement){
             newChild = new View();

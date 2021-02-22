@@ -24,14 +24,23 @@ export default class AirSlot extends HTMLElement {
     }
 
     async loadView(linkName){
-        const  { default: View } = await import(`./views/${linkName}View.js`);
-        const newChild = new View();
+
         console.log(`./views/${linkName}View.js`);
-        if(this.oldChild){
-            this.root.replaceChild(newChild,this.oldChild);
-        }else {
-            this.root.appendChild(newChild);
+
+        const  { default: View } = await import(`./views/${linkName}View.js`);
+        let newChild;
+        if(View.prototype instanceof HTMLElement){
+            newChild = new View();
+            if(this.oldChild){
+                this.root.replaceChild(newChild,this.oldChild);
+            }else {
+                this.root.appendChild(newChild);
+            }    
+        } else {
+            this.root.innerHTML = View;
+            newChild = this.root.querySelector('article');
         }
+
         this.oldChild = newChild;
 
     }

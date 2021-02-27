@@ -10,13 +10,11 @@ export default class AirNav extends HTMLElement {
             this.activeLinkClass = 'active-link';
         }
         const links = this.querySelectorAll("a");
-        console.log(links);
         links.forEach(e => this.registerListener(e));
     }
 
     registerListener(e) {
         window.onhashchange = evt => this.onAdressBarChanged(evt);
-
     }
 
     onAdressBarChanged(evt){
